@@ -53,10 +53,9 @@ flowchart TD
         L --> M["Structured JSON Record: n_objects, mean_area, density_class, quality_flag"]
     end
 
-    subgraph S5 ["5. Narrative & Output Generation (Task 4 & Report)"]
+    subgraph S5 ["5. Narrative & Output Generation (Task 4)"]
         M --> N["Local LLM Llama 3.2 - Constrained Narrative Generator"]
         M --> O["Aggregated Test DataFrame CSV"]
-        C & F & J & N --> P["Max 4-Page PDF Assignment Report"]
     end
 ```
 
