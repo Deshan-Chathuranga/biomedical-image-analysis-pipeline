@@ -103,6 +103,9 @@
       </div>
 
       <div class="glass" style="padding: 1.5rem;">
+        <div style="background: rgba(59, 130, 246, 0.12); border: 1px solid var(--accent-blue); border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem; font-size: 0.88rem;">
+          <b style="color: var(--accent-blue);">ℹ️ Ollama Engine Architecture Note (Tutor Feedback):</b> Native support for Meta's <code>mllama</code> cross-attention architecture (which <code>Llama 3.2 Vision</code> relies on) was introduced in <b>Ollama v0.4.0+</b>. Upgrading local Ollama to v0.4.0+ or running in Google Colab (as demonstrated in Lab 2) enables smooth native execution of <code>llama3.2-vision</code>. For legacy clients (&lt; v0.4.0), our automated fallback layer safely reroutes inference to <code>llava:7b</code> / <code>llava-llama3</code>.
+        </div>
         <div class="tab-buttons">
           <button class="tab-btn active" onclick="showVlmTab('naive')">❌ Naive Prompt (Unconstrained)</button>
           <button class="tab-btn" onclick="showVlmTab('structured')">✅ Structured Prompt Framing (Auditable)</button>

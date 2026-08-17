@@ -125,8 +125,10 @@ All **three extra credit extensions** were implemented and documented in the cod
 3. **Foundation Model Baseline Comparison:**
    - Compared trained U-Net masks against zero-shot promptable MedSAM / SAM bounding-box segmentation baselines and global Otsu thresholding.
 
-4. **Llama 3.2 Vision Ollama Failure Analysis:**
-   - Documented the exact `llama3.2-vision` HTTP 500 error (`unknown model architecture: 'mllama'`) caused by missing `mllama` tensor operators in legacy Ollama binaries, and demonstrated how our automated fallback layer safely rerouted execution to `llava:7b` without breaking pipeline continuity.
+4. **Llama 3.2 Vision & Ollama Architecture Analysis:**
+   - Documented the `unknown model architecture: 'mllama'` error that occurs on Ollama client versions prior to v0.4.0. As noted by tutor Nickolay, native support for Meta's `mllama` cross-attention architecture (which `Llama 3.2 Vision` relies on) was introduced in **Ollama v0.4.0+**.
+   - Upgrading Ollama to v0.4.0+ or running in Google Colab (as demonstrated in Lab 2) enables smooth native execution of `llama3.2-vision`.
+   - For environments running legacy Ollama clients (< v0.4.0) or constrained local memory, our pipeline includes an automated fallback mechanism to `llava:7b` / `llava-llama3` / `qwen2-vl`, ensuring fault-tolerant execution across all client versions.
 
 ---
 
