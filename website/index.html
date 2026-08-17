@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biomedical Image-Analysis AI Pipeline Showcase</title>
+  <meta name="description" content="A local, auditable biomedical image-analysis system combining Vision-Language Models, classical regionprops, PyTorch U-Net, and structured JSON framework.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <span>🧬</span> Biomedical AI Pipeline
+      </div>
+      <ul class="nav-links">
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#vlm-vs-classical">VLM vs. Classical</a></li>
+        <li><a href="#unet-ablation">U-Net Ablation</a></li>
+        <li><a href="#test-results">Test Results</a></li>
+        <li><a href="#robustness">Robustness</a></li>
+        <li><a href="#qa">Q&A</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="badge">Local & Auditable Medical AI Architecture</div>
+    <h1>Compact Biomedical Image-Analysis Pipeline</h1>
+    <p>Combining local Vision-Language Models (Llama 3.2 / LLaVA), classical image processing (scikit-image), PyTorch U-Net cell segmentation, and a numbers-first structured JSON framework to prevent LLM hallucinations.</p>
+  </section>
+
+  <!-- Key Metrics Row -->
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="metric-value">0.6857</div>
+      <div class="metric-label">U-Net Mean Dice Score</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">0.5243</div>
+      <div class="metric-label">U-Net Mean IoU</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">100% Local</div>
+      <div class="metric-label">Local Ollama & PyTorch</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">Auditable</div>
+      <div class="metric-label">JSON Source of Truth</div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Section 1: System Architecture -->
+    <section id="architecture">
+      <div class="section-header">
+        <h2>📌 System Architecture Diagram</h2>
+        <p>Multi-stage hybrid pipeline decoupling pixel vision from reasoning via an intermediate JSON representation.</p>
+      </div>
+      <div class="visual-card">
+        <img src="assets/system_architecture.png" alt="System Architecture Diagram">
+        <div class="caption">Figure 1: End-to-end data flow from raw microscopy image through parallel processing engines to auditable structured JSON records and constrained narratives.</div>
+      </div>
+    </section>
+
+    <!-- Section 2: EDA & VLM vs. Classical -->
+    <section id="vlm-vs-classical">
+      <div class="section-header">
+        <h2>🔬 Data Prep, EDA & Prompt Architecture (Tasks 1 & 2)</h2>
+        <p>Comparing direct visual language model descriptions against deterministic numbers-first classical extraction.</p>
+      </div>
+      <div class="grid-2">
+        <div class="visual-card">
+          <img src="assets/eda_sample_grid.png" alt="EDA Sample Grid">
+          <div class="caption">Figure 2A: Representative image sample grid across Sparse, Normal, Dense, and Clustered cell density regimes.</div>
+        </div>
+        <div class="visual-card">
+          <img src="assets/eda_intensity_histogram.png" alt="Intensity Histogram">
+          <div class="caption">Figure 2B: Bimodal pixel intensity distribution of normalized 256x256 grayscale microscopy fields.</div>
+        </div>
+      </div>
+
+      <br>
+
+      <!-- Code & Prompt Showcase Grid -->
+      <div class="grid-2">
+        <div>
+          <h3 style="color: var(--accent-cyan); margin-bottom: 0.75rem;">Structured JSON Record (Source of Truth)</h3>
+          <div class="code-block">
+<pre>{
+  "image_id": "train_001",
+  "n_objects": 23,
+  "mean_area": 243.22,
+  "mean_eccentricity": 0.602,
+  "mean_solidity": 0.941,
+  "mean_intensity": 0.249,
+  "density_class": "sparse",
+  "quality_flag": "good"
+}</pre>
+          </div>
+        </div>
+        <div>
+          <h3 style="color: var(--accent-cyan); margin-bottom: 0.75rem;">Constrained Natural Language Narrative</h3>
+          <div class="code-block">
+<pre>"Based on numerical metrics, the image contains 23 identified nuclei in a sparse density layout (mean area = 243.22 px). Morphological metrics indicate moderate shape eccentricity (0.602) and high solidity (0.941), corresponding to compact oval nuclear borders. Image quality is verified as good."</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: U-Net & Loss Ablation -->
+    <section id="unet-ablation">
+      <div class="section-header">
+        <h2>⚡ PyTorch U-Net Segmentation & Loss Ablation (Task 3)</h2>
+        <p>Comparing Binary Cross-Entropy (BCE), Dice Loss, and Combined BCE+Dice Loss on validation metrics.</p>
+      </div>
+      <div class="grid-2">
+        <div class="visual-card">
+          <img src="assets/unet_training_curves.png" alt="U-Net Training Curves">
+          <div class="caption">Figure 3A: Validation Loss and Dice score curves across loss functions.</div>
+        </div>
+        <div class="visual-card">
+          <img src="assets/unet_validation_panels.png" alt="U-Net Validation Panels">
+          <div class="caption">Figure 3B: Side-by-side segmentation comparison: Input Image | Ground Truth Mask | Otsu Classical | U-Net Prediction.</div>
+        </div>
+      </div>
+
+      <br>
+
+      <!-- Loss Ablation Metrics Table -->
+      <div class="visual-card">
+        <h3 style="color: var(--accent-cyan); margin-bottom: 1rem;">Validation Loss Ablation Results Table</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Segmentation Model / Loss</th>
+                <th>Validation Mean Dice</th>
+                <th>Validation Mean IoU</th>
+                <th>Characteristics & Failure Modes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>U-Net (BCE Loss)</b></td>
+                <td>0.0382</td>
+                <td>0.0196</td>
+                <td>Severe class imbalance bias favoring dark background field.</td>
+              </tr>
+              <tr style="background: rgba(16, 185, 129, 0.15);">
+                <td><b style="color: var(--success);">U-Net (Dice Loss) — Best</b></td>
+                <td><b style="color: var(--success);">0.6857</b></td>
+                <td><b style="color: var(--success);">0.5243</b></td>
+                <td><b>Best spatial overlap alignment and boundary delineation.</b></td>
+              </tr>
+              <tr>
+                <td><b>U-Net (BCE + Dice)</b></td>
+                <td>0.0284</td>
+                <td>0.0145</td>
+                <td>Requires tuned hyperparameter loss weighting.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Test Set Pipeline DataFrame -->
+    <section id="test-results">
+      <div class="section-header">
+        <h2>📊 Aggregated Hybrid Pipeline Test Set Evaluation (Task 4)</h2>
+        <p>Representative records across 12 unseen test images exported to <code>test_pipeline_results.csv</code>.</p>
+      </div>
+      <div class="visual-card">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Image ID</th>
+                <th>Objects (N)</th>
+                <th>Mean Area (px)</th>
+                <th>Eccentricity</th>
+                <th>Solidity</th>
+                <th>Density Class</th>
+                <th>Quality Flag</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><b>test_000</b></td><td>0</td><td>0.00</td><td>0.000</td><td>0.000</td><td>sparse</td><td>good</td></tr>
+              <tr><td><b>test_001</b></td><td>9</td><td>2.44</td><td>0.612</td><td>0.935</td><td>sparse</td><td>good</td></tr>
+              <tr><td><b>test_002</b></td><td>4</td><td>1.25</td><td>0.589</td><td>0.940</td><td>sparse</td><td>good</td></tr>
+              <tr><td><b>test_003</b></td><td>24</td><td>2.75</td><td>0.602</td><td>0.941</td><td>normal</td><td>good</td></tr>
+              <tr><td><b>test_004</b></td><td>53</td><td>2.66</td><td>0.615</td><td>0.938</td><td>dense</td><td>good</td></tr>
+              <tr><td><b>test_005</b></td><td>47</td><td>2.61</td><td>0.608</td><td>0.939</td><td>dense</td><td>good</td></tr>
+              <tr><td><b>test_010</b></td><td>82</td><td>3.32</td><td>0.624</td><td>0.925</td><td>clustered</td><td>good</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Robustness Analysis -->
+    <section id="robustness">
+      <div class="section-header">
+        <h2>🛡️ Robustness & Corruption Propagation Analysis (Extra Credit)</h2>
+        <p>Tracing Gaussian Blur, Low Contrast, and Noise propagation across pipeline stages.</p>
+      </div>
+      <div class="visual-card">
+        <img src="assets/robustness_propagation_panel.png" alt="Robustness Propagation Panel">
+        <div class="caption">Figure 4: Corruption propagation panel pinpointing Stage 1 (U-Net Mask Prediction) as the earliest detectable failure point.</div>
+      </div>
+    </section>
+
+    <!-- Section 6: Questions & Answers -->
+    <section id="qa">
+      <div class="section-header">
+        <h2>❓ Answers to Assignment Questions 1–6</h2>
+        <p>Detailed technical analysis, fault tree walk, and clinical safety discussion.</p>
+      </div>
+      <div class="qa-grid">
+        <div class="qa-card">
+          <h3>Q1: Direct VLM Description vs. Numbers-First Description</h3>
+          <p><b>Numbers-first (Task 2) is significantly more trustworthy</b> because every assertion is explicitly derived from deterministic mathematical measurements calculated via <code>regionprops_table</code>, eliminating visual hallucinations. Direct VLM (Task 1) provides richer qualitative spatial context but requires strict JSON prompt framing to forbid diagnostic leaps.</p>
+        </div>
+
+        <div class="qa-card">
+          <h3>Q2: U-Net vs. Classical Otsu Segmentation</h3>
+          <p>Otsu global thresholding performs exceptionally well with zero training in <b>isolated sparse regimes</b> (e.g. <code>train_000</code>). However, in <b>clustered regimes with touching nuclei</b> (e.g. <code>train_004</code>), global thresholding fails because intensity bridges merge distinct cells into giant components. U-Net uses learned spatial shape priors to separate touching boundaries.</p>
+        </div>
+
+        <div class="qa-card">
+          <h3>Q3: U-Net Metrics (Dice: 0.6857, IoU: 0.5243) & Error Analysis</h3>
+          <p>Dice measures harmonic spatial overlap while IoU penalizes boundary mismatch more strictly. Mistakes concentrate at narrow contact points between adjacent touching nuclei in dense clusters and faint peripheral nuclei near background intensity threshold.</p>
+        </div>
+
+        <div class="qa-card">
+          <h3>Q4: LLM Hallucination Risk & JSON Source of Truth</h3>
+          <p>Unconstrained vision models infer false medical conditions when interpreting raw pixels. Using structured JSON as an unalterable firewall decouples vision from reasoning, restricting narrative generators to translating verified numeric JSON values into natural language without inventing outside facts.</p>
+        </div>
+
+        <div class="qa-card">
+          <h3>Q5: Clinical Trustworthiness & Critical Improvement</h3>
+          <p><b>No</b> part of this system is cleared for clinical use (educational research only). The single change to most improve trustworthiness is implementing <b>Bayesian Uncertainty Estimation (Monte Carlo Dropout masks)</b> paired with mandatory human-in-the-loop specialist review.</p>
+        </div>
+
+        <div class="qa-card">
+          <h3>Q6: Robustness Propagation & Fault Tree Analysis</h3>
+          <p>Heavy Gaussian blur ($\sigma=3.0$), low contrast ($0.2\times$), and additive noise ($\sigma=40$) cause U-Net mask degradation and metric drops. Corruptions are earliest detectable at <b>Stage 1 (U-Net Mask Prediction)</b> via sharp Dice score drops and automated <code>quality_flag</code> downgrades.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Compact Biomedical Image-Analysis Pipeline &copy; 2026. Built with PyTorch, scikit-image, Ollama, and ReportLab. Educational Use Only.</p>
+  </footer>
+
+</body>
+</html>
