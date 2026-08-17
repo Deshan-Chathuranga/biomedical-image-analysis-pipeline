@@ -15,37 +15,37 @@ A local, auditable biomedical image-analysis system for **fluorescence microscop
 
 ### End-to-End Pipeline Flow
 
-$$\text{Raw Image (256}\times\text{256)} \longrightarrow \text{PyTorch U-Net Mask} \longrightarrow \text{Regionprops Table} \longrightarrow \text{Structured JSON Record} \longrightarrow \text{Constrained Narrative}$$
+`Raw Image (256x256)` ➔ `PyTorch U-Net Mask` ➔ `Regionprops Table` ➔ `Structured JSON Record` ➔ `Constrained Narrative`
 
 ```mermaid
 flowchart TD
-    subgraph Input Stage
-        A[Raw Microscopy Image 256x256]
+    subgraph S1 ["1. Input Stage"]
+        A["Raw Microscopy Image (256x256)"]
     end
 
-    subgraph Branch A: Direct Multimodal VLM (Task 1)
-        A -->|Ollama API| B[Llama 3.2 Vision / LLaVA 7B]
-        B -->|Structured Prompt Framing| C[Direct VLM JSON + Visual Description]
+    subgraph S2 ["2. Branch A: Direct Multimodal VLM (Task 1)"]
+        A -->|Ollama API| B["Llama 3.2 Vision / LLaVA 7B"]
+        B -->|Structured Prompt Framing| C["Direct VLM JSON + Visual Description"]
     end
 
-    subgraph Branch B: Deep Learning & Classical CV (Tasks 2 & 3)
-        A --> D[Otsu Thresholding & Morphology]
-        D --> E[Connected Components Labeling]
-        E --> F[skimage regionprops_table]
+    subgraph S3 ["3. Branch B: Deep Learning & Classical CV (Tasks 2 & 3)"]
+        A --> D["Otsu Thresholding & Morphology"]
+        D --> E["Connected Components Labeling"]
+        E --> F["skimage regionprops_table"]
         
-        A --> I[PyTorch Small U-Net Segmentation]
-        I -->|Loss Ablation: BCE / Dice / Combined| J[Predicted Mask 256x256]
+        A --> I["PyTorch Small U-Net Segmentation"]
+        I -->|Loss Ablation: BCE / Dice / Combined| J["Predicted Mask (256x256)"]
     end
 
-    subgraph Intermediate Representation (Source of Truth)
-        J --> L[U-Net Regionprops Extraction]
-        L --> M[Structured JSON Record: n_objects, mean_area, density_class, quality_flag]
+    subgraph S4 ["4. Intermediate Representation (Source of Truth)"]
+        J --> L["U-Net Regionprops Extraction"]
+        L --> M["Structured JSON Record: n_objects, mean_area, density_class, quality_flag"]
     end
 
-    subgraph Narrative & Output Generation (Task 4 & Report)
-        M --> N[Local LLM Llama 3.2 - Constrained Narrative Generator]
-        M --> O[Aggregated Test DataFrame CSV]
-        C & H & K & N --> P[Max 4-Page PDF Assignment Report]
+    subgraph S5 ["5. Narrative & Output Generation (Task 4 & Report)"]
+        M --> N["Local LLM Llama 3.2 - Constrained Narrative Generator"]
+        M --> O["Aggregated Test DataFrame CSV"]
+        C & F & J & N --> P["Max 4-Page PDF Assignment Report"]
     end
 ```
 
