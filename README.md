@@ -71,6 +71,7 @@ The **Constrained Narrative Report Generator** is the final text-synthesis stage
 ```text
 .
 ├── Assignment3_Biomedical_AI_Pipeline_Report.pdf  # Compiled 2-page publication-quality PDF report
+├── main.py                                         # Single-command master pipeline runner script
 ├── requirements.txt                                # Python dependencies
 ├── .gitignore                                     # Ignored cache & binary files
 ├── README.md                                       # Project documentation & answers
@@ -139,25 +140,32 @@ ollama pull llama3.2-vision
 
 ## 💻 Running the Pipeline
 
-Each task can be executed independently using the modular scripts in `src/`:
+### Option A: One-Command Master Pipeline (Recommended for Complete Run)
+Run the entire pipeline end-to-end with a single master command:
+```bash
+python3 main.py
+```
+
+### Option B: Step-by-Step Execution (Recommended for Debugging & Inspection)
+Run individual tasks independently to inspect intermediate outputs at each stage:
 
 ```bash
-# 1. Run Data Preparation & Exploratory Data Analysis (Task 1)
+# Step 1: Exploratory Data Analysis (Task 1)
 python3 src/data_prep.py
 
-# 2. Run Direct Multimodal VLM Description (Task 1)
+# Step 2: Direct Multimodal VLM Description (Task 1)
 python3 src/vlm_task1.py
 
-# 3. Run Classical Otsu Segmentation & Numbers-First Interpretation (Task 2)
+# Step 3: Classical Otsu Segmentation & Numbers-First LLM (Task 2)
 python3 src/classical_task2.py
 
-# 4. Train PyTorch U-Net & Execute Loss Ablation (Task 3)
+# Step 4: PyTorch U-Net Training & Loss Ablation (Task 3)
 python3 src/unet_task3.py
 
-# 5. Run Full Hybrid Pipeline on Unseen Test Images (Task 4)
+# Step 5: Full Hybrid Pipeline on Test Images (Task 4)
 python3 src/hybrid_pipeline_task4.py
 
-# 6. Run Robustness & Corruption Propagation Analysis (Extra Credit Extension)
+# Step 6: Robustness & Corruption Propagation Analysis (Extra Credit Extension)
 python3 src/extensions.py
 ```
 
