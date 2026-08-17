@@ -70,7 +70,6 @@ The **Constrained Narrative Report Generator** is the final text-synthesis stage
 
 ```text
 .
-├── Assignment3_Biomedical_AI_Pipeline_Report.pdf  # Compiled 2-page publication-quality PDF report
 ├── main.py                                         # Single-command master pipeline runner script
 ├── requirements.txt                                # Python dependencies
 ├── .gitignore                                     # Ignored cache & binary files
