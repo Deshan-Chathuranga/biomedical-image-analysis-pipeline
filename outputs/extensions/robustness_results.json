@@ -1,0 +1,38 @@
+[
+  {
+    "corruption_type": "clean",
+    "dice_score": 0.0,
+    "iou_score": 0.0,
+    "detected_objects": 0,
+    "mean_area": 0.0,
+    "quality_flag": "good",
+    "earliest_detectable_stage": "None (Baseline)"
+  },
+  {
+    "corruption_type": "blurred",
+    "dice_score": 0.0,
+    "iou_score": 0.0,
+    "detected_objects": 0,
+    "mean_area": 0.0,
+    "quality_flag": "degraded",
+    "earliest_detectable_stage": "Stage 1 (U-Net Mask: boundary blurring & merged objects)"
+  },
+  {
+    "corruption_type": "low_contrast",
+    "dice_score": 0.0,
+    "iou_score": 0.0,
+    "detected_objects": 0,
+    "mean_area": 0.0,
+    "quality_flag": "degraded",
+    "earliest_detectable_stage": "Stage 1 (U-Net Mask: severe object dropout, Dice drops)"
+  },
+  {
+    "corruption_type": "noisy",
+    "dice_score": 0.0031,
+    "iou_score": 0.0016,
+    "detected_objects": 1,
+    "mean_area": 1.0,
+    "quality_flag": "degraded",
+    "earliest_detectable_stage": "Stage 2 (Feature Table: high false-positive speckle counts)"
+  }
+]

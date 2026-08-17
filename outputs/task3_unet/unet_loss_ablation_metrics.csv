@@ -1,0 +1,4 @@
+model,val_dice,val_iou
+U-Net (BCE),0.0382,0.0196
+U-Net (DICE),0.6857,0.5243
+U-Net (BCE_DICE),0.0284,0.0145

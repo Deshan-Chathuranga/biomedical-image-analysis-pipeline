@@ -1,0 +1,5 @@
+Image ID: train_001
+Prompt: Analyze this medical image in detail. Diagnose any abnormalities, pathology, or diseases present, and explain the diagnosis.
+
+Response:
+None

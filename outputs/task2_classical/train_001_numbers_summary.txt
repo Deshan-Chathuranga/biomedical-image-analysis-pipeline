@@ -1,0 +1,7 @@
+Quantitative Image Analysis Summary:
+- Total Connected Components (Objects): 23
+- Otsu Intensity Threshold: 0.1372
+- Object Area (pixels): mean = 243.22 ± 189.41 (min = 59.0, max = 915.0)
+- Shape Eccentricity (0 = circle, 1 = line): mean = 0.602
+- Shape Solidity (ratio of area to convex hull area): mean = 0.941
+- Object Mean Pixel Intensity: 0.249

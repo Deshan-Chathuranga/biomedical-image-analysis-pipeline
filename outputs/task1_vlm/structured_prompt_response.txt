@@ -1,0 +1,16 @@
+Image ID: train_001
+Prompt: You are an objective biomedical image description system. Your sole task is to provide an objective visual description of the provided microscopy image. 
+Do NOT provide any clinical diagnosis, disease classification, or treatment recommendation. If a property cannot be visually verified, explicitly write "uncertain".
+
+Return your output strictly as a single raw valid JSON object without any Markdown formatting or extra text outside the JSON:
+{
+  "modality": "Fluorescence Microscopy",
+  "tissue_type": "Stained Cell Nuclei",
+  "notable_features": "describe object count range, spatial distribution, brightness, or clustering",
+  "image_quality": "good",
+  "descriptive_summary": "one-paragraph objective visual description"
+}
+
+
+Response:
+None
