@@ -3,20 +3,20 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange.svg)](https://pytorch.org/)
 [![Ollama](https://img.shields.io/badge/Ollama-Local_LLM/VLM-black.svg)](https://ollama.ai/)
-[![Website](https://img.shields.io/badge/Live_Showcase-Static_Website-green.svg)](https://deshan-chathuranga.github.io/biomedical-image-analysis-pipeline/website/)
+[![Live Showcase Website](https://img.shields.io/badge/Live_Showcase-GitHub_Pages-green.svg)](https://deshan-chathuranga.github.io/biomedical-image-analysis-pipeline/)
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](LICENSE)
 
 A local, auditable biomedical image-analysis system for **fluorescence microscopy cell nuclei**. This project combines local Vision-Language Models (VLMs), classical image processing (`scikit-image`), deep learning segmentation (PyTorch U-Net), and a numbers-first structured JSON framework to prevent LLM hallucinations.
 
 ---
 
-## 🌐 Interactive Static Website Showcase
+## 🌐 Live Interactive Website Showcase
 
-We have built a dedicated, responsive **Static Showcase Website** in the [`website/`](website/) folder:
+Check out the interactive, responsive static website showcase hosted on GitHub Pages:
 
-👉 **[View Interactive Website Showcase](website/index.html)**
+👉 **[https://deshan-chathuranga.github.io/biomedical-image-analysis-pipeline/](https://deshan-chathuranga.github.io/biomedical-image-analysis-pipeline/)**
 
-*(To view locally, open [`website/index.html`](website/index.html) in any web browser, or host via GitHub Pages).*
+*(Or view locally by opening [`website/index.html`](website/index.html) in any web browser).*
 
 ---
 
