@@ -147,8 +147,12 @@ pip install -r requirements.txt
 Pull the required local LLM and VLM models via Ollama:
 ```bash
 ollama pull llama3.2
-ollama pull llava:7b
 ollama pull llama3.2-vision
+
+# Alternative vision models recommended by module leader (Nickolay):
+ollama pull qwen2.5-vl
+ollama pull ministral-3:14b
+ollama pull llava:7b
 ```
 
 ---
