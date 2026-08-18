@@ -8,7 +8,7 @@ OLLAMA_URL = "http://127.0.0.1:11434/api/generate"
 MODEL_NAME = "llama3.2-vision"
 ALT_MODEL_NAME = "llava:7b"
 
-OUTPUT_DIR = os.path.abspath("outputs/task1_vlm")
+OUTPUT_DIR = os.path.abspath("outputs/vlm")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 NAIVE_PROMPT = """Analyze this medical image in detail. Diagnose any abnormalities, pathology, or diseases present, and explain the diagnosis."""
@@ -84,7 +84,7 @@ def run_task1():
         
     print(f"Structured Prompt Response:\n{structured_response}\n")
     with open(os.path.join(OUTPUT_DIR, "structured_prompt_response.txt"), "w") as f:
-        f.write(f"Image ID: {img_id}\nPrompt: {STRUCTURED_PROMPT}\n\nResponse:\n{structured_response}")
+        f.write(f"Image ID: {img_id}\nPrompt: {STRUCTURED_PROMPT}\n\nResponse:\n{structured_response or ''}")
         
     # 3. Non-determinism Evaluation (3 repeated runs)
     print("\n--- 3. Testing Non-Determinism Across 3 Repeated Runs ---")
@@ -96,7 +96,7 @@ def run_task1():
             resp = query_ollama_vlm(img_path, STRUCTURED_PROMPT, model=ALT_MODEL_NAME, temperature=0.7)
         runs.append({"run": i, "response": resp})
         with open(os.path.join(OUTPUT_DIR, f"repeat_run_{i}.txt"), "w") as f:
-            f.write(resp)
+            f.write(resp or "")
             
     summary_data = {
         "image_id": img_id,

@@ -5,7 +5,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 DATASET_DIR = os.path.abspath('assignment3_dataset/nuclei_dataset')
-OUTPUT_DIR = os.path.abspath('outputs/task1_eda')
+OUTPUT_DIR = os.path.abspath('outputs/eda')
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

@@ -10,7 +10,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from skimage.filters import threshold_otsu
 
-OUTPUT_DIR = os.path.abspath("outputs/task3_unet")
+OUTPUT_DIR = os.path.abspath("outputs/unet")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ---------------------------------------------------------

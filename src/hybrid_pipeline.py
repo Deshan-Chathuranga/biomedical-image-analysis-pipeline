@@ -6,10 +6,10 @@ import pandas as pd
 from PIL import Image
 from skimage.measure import label, regionprops_table
 
-from unet_task3 import SmallUNet
-from classical_task2 import query_text_llm
+from unet_segmentation import SmallUNet
+from classical_processing import query_text_llm
 
-OUTPUT_DIR = os.path.abspath("outputs/task4_hybrid")
+OUTPUT_DIR = os.path.abspath("outputs/hybrid")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def load_trained_unet(model_path, device='cpu'):
@@ -19,12 +19,12 @@ def load_trained_unet(model_path, device='cpu'):
     return model
 
 def run_hybrid_pipeline():
-    print("=== Running Task 4: Full Hybrid Pipeline on Unseen Test Images ===")
+    print("=== Running Full Hybrid Pipeline on Unseen Test Images ===")
     dataset_dir = os.path.abspath('assignment3_dataset/nuclei_dataset')
     test_img_dir = os.path.join(dataset_dir, 'test', 'images')
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu')
-    model_path = os.path.abspath('outputs/task3_unet/unet_bce_dice.pth')
+    model_path = os.path.abspath('outputs/unet/unet_bce_dice.pth')
     
     if not os.path.exists(model_path):
         print(f"Error: Model checkpoint {model_path} not found. Ensure Task 3 completes first.")

@@ -7,12 +7,12 @@ print("  COMPACT BIOMEDICAL IMAGE-ANALYSIS HYBRID AI PIPELINE")
 print("=" * 70)
 
 scripts = [
-    ("Task 1: Exploratory Data Analysis & Preprocessing", "src/data_prep.py"),
-    ("Task 1: Multimodal LLM Direct Description", "src/vlm_task1.py"),
-    ("Task 2: Classical Features & LLM Interpretation", "src/classical_task2.py"),
-    ("Task 3: PyTorch U-Net Segmentation & Loss Ablation", "src/unet_task3.py"),
-    ("Task 4: Hybrid Auditable Pipeline on Test Images", "src/hybrid_pipeline_task4.py"),
-    ("Extra Credit Extensions: Robustness Corruption Analysis", "src/extensions.py")
+    ("Exploratory Data Analysis & Preprocessing", "src/data_prep.py"),
+    ("Multimodal LLM Direct Description", "src/multimodal_vlm.py"),
+    ("Classical Features & LLM Interpretation", "src/classical_processing.py"),
+    ("PyTorch U-Net Segmentation & Loss Ablation", "src/unet_segmentation.py"),
+    ("Hybrid Auditable Pipeline on Test Images", "src/hybrid_pipeline.py"),
+    ("Robustness Corruption Analysis", "src/extensions.py")
 ]
 
 start_total = time.time()

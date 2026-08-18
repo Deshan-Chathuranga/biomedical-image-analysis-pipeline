@@ -7,8 +7,8 @@ from PIL import Image, ImageFilter, ImageEnhance
 import matplotlib.pyplot as plt
 from skimage.measure import label, regionprops_table
 
-from unet_task3 import SmallUNet, compute_metrics
-from classical_task2 import query_text_llm
+from unet_segmentation import SmallUNet, compute_metrics
+from classical_processing import query_text_llm
 
 OUTPUT_DIR = os.path.abspath("outputs/extensions")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -29,30 +29,29 @@ def apply_corruptions(img_path):
     # 3. Additive Gaussian Noise
     img_arr = np.array(img, dtype=np.float32)
     noise = np.random.normal(0, 40, img_arr.shape)
-    img_noisy = np.clip(img_arr + noise, 0, 255).astype(np.uint8)
-    img_noisy = Image.fromarray(img_noisy)
+    img_noisy_arr = np.clip(img_arr + noise, 0, 255).astype(np.uint8)
+    img_noisy = Image.fromarray(img_noisy_arr)
     
     return {
-        "clean": img,
-        "blurred": img_blurred,
-        "low_contrast": img_low_contrast,
-        "noisy": img_noisy
+        'clean': img,
+        'gaussian_blur': img_blurred,
+        'low_contrast': img_low_contrast,
+        'additive_noise': img_noisy
     }
 
-def run_robustness_extension():
-    print("=== Running Extension: Robustness & Corruption Propagation Analysis ===")
-    dataset_dir = os.path.abspath('assignment3_dataset/nuclei_dataset')
-    val_img_path = os.path.join(dataset_dir, 'val', 'images', 'val_000.png')
-    val_mask_path = os.path.join(dataset_dir, 'val', 'masks', 'val_000.png')
+def run_robustness_analysis():
+    print("=== Running Extra Credit: Robustness & Corruption Propagation Analysis ===")
+    val_img_path = os.path.abspath('assignment3_dataset/nuclei_dataset/val/images/val_001.png')
+    val_mask_path = os.path.abspath('assignment3_dataset/nuclei_dataset/val/masks/val_001.png')
     
-    gt_mask = Image.open(val_mask_path).convert('L').resize((256, 256), Image.Resampling.NEAREST)
-    gt_mask_np = np.array(gt_mask, dtype=np.float32) / 255.0
+    gt_mask_img = Image.open(val_mask_path).convert('L').resize((256, 256), Image.Resampling.NEAREST)
+    gt_mask_np = np.array(gt_mask_img, dtype=np.float32) / 255.0
     gt_mask_t = torch.tensor(gt_mask_np).unsqueeze(0).unsqueeze(0)
     
     corruptions = apply_corruptions(val_img_path)
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu')
-    model_path = os.path.abspath('outputs/task3_unet/unet_bce_dice.pth')
+    model_path = os.path.abspath('outputs/unet/unet_bce_dice.pth')
     unet_model = SmallUNet().to(device)
     unet_model.load_state_dict(torch.load(model_path, map_location=device))
     unet_model.eval()

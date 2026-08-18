@@ -11,7 +11,7 @@ from skimage.measure import label, regionprops_table
 OLLAMA_TEXT_URL = "http://127.0.0.1:11434/api/generate"
 TEXT_MODEL = "llama3.2" # or qwen2.5:3b / phi3:mini
 
-OUTPUT_DIR = os.path.abspath("outputs/task2_classical")
+OUTPUT_DIR = os.path.abspath("outputs/classical")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def process_classical_segmentation(img_path):

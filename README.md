@@ -34,12 +34,12 @@ flowchart TD
         A["Raw Microscopy Image (256x256)"]
     end
 
-    subgraph S2 ["2. Branch A: Direct Multimodal VLM (Task 1)"]
+    subgraph S2 ["2. Direct Multimodal VLM"]
         A -->|Ollama API| B["Llama 3.2 Vision / LLaVA 7B"]
         B -->|Structured Prompt Framing| C["Direct VLM JSON + Visual Description"]
     end
 
-    subgraph S3 ["3. Branch B: Deep Learning & Classical CV (Tasks 2 & 3)"]
+    subgraph S3 ["3. Deep Learning & Classical CV"]
         A --> D["Otsu Thresholding & Morphology"]
         D --> E["Connected Components Labeling"]
         E --> F["skimage regionprops_table"]
@@ -53,7 +53,7 @@ flowchart TD
         L --> M["Structured JSON Record: n_objects, mean_area, density_class, quality_flag"]
     end
 
-    subgraph S5 ["5. Narrative & Output Generation (Task 4)"]
+    subgraph S5 ["5. Narrative & Output Generation"]
         M --> N["Local LLM Llama 3.2 - Constrained Narrative Generator"]
         M --> O["Aggregated Test DataFrame CSV"]
     end
@@ -70,9 +70,9 @@ The **Constrained Narrative Report Generator** is the final text-synthesis stage
 3. **Auditability & Traceability:** Every statement in the narrative is strictly traceable back to pre-calculated JSON fields and pixel-level region properties.
 
 ### Constrained Narrative Output File Locations:
-* **Task 2 Narrative Output:** [`outputs/task2_classical/train_001_llm_numbers_first_response.txt`](file:///Users/savinianuradha/Documents/Data%20Analysis%20WIth%20AI/Assignment%203-AI%20imaging%20Coding%20Case%20Study/outputs/task2_classical/train_001_llm_numbers_first_response.txt)
-* **Task 4 Test Set CSV (Column `narrative`):** [`outputs/task4_hybrid/test_pipeline_results.csv`](file:///Users/savinianuradha/Documents/Data%20Analysis%20WIth%20AI/Assignment%203-AI%20imaging%20Coding%20Case%20Study/outputs/task4_hybrid/test_pipeline_results.csv)
-* **Task 4 Test Set JSON (Key `"narrative"`):** [`outputs/task4_hybrid/test_pipeline_records.json`](file:///Users/savinianuradha/Documents/Data%20Analysis%20WIth%20AI/Assignment%203-AI%20imaging%20Coding%20Case%20Study/outputs/task4_hybrid/test_pipeline_records.json)
+* **Classical Pipeline Output:** [`outputs/classical/train_001_llm_numbers_first_response.txt`](file:///Users/savinianuradha/Documents/Data%20Analysis%20WIth%20AI/Assignment%203-AI%20imaging%20Coding%20Case%20Study/outputs/classical/train_001_llm_numbers_first_response.txt)
+* **Test Set CSV (Column `narrative`):** [`outputs/hybrid/test_pipeline_results.csv`](file:///Users/savinianuradha/Documents/Data%20Analysis%20WIth%20AI/Assignment%203-AI%20imaging%20Coding%20Case%20Study/outputs/hybrid/test_pipeline_results.csv)
+* **Test Set JSON (Key `"narrative"`):** [`outputs/hybrid/test_pipeline_records.json`](file:///Users/savinianuradha/Documents/Data%20Analysis%20WIth%20AI/Assignment%203-AI%20imaging%20Coding%20Case%20Study/outputs/hybrid/test_pipeline_records.json)
 
 ---
 
@@ -90,20 +90,20 @@ The **Constrained Narrative Report Generator** is the final text-synthesis stage
 │   └── assets/                                     # Embedded figure images & diagrams
 ├── src/                                            # Modular Python pipeline code
 │   ├── data_prep.py                                # Grayscale conversion, EDA grid & intensity histograms
-│   ├── vlm_task1.py                                # Direct VLM analysis (Llama 3.2 Vision / LLaVA)
-│   ├── classical_task2.py                          # Otsu thresholding, regionprops & numbers-first LLM
-│   ├── unet_task3.py                               # PyTorch U-Net architecture, training & loss ablation
-│   ├── hybrid_pipeline_task4.py                    # End-to-end test execution & DataFrame export
+│   ├── multimodal_vlm.py                           # Direct VLM analysis (Llama 3.2 Vision / LLaVA)
+│   ├── classical_processing.py                     # Otsu thresholding, regionprops & numbers-first LLM
+│   ├── unet_segmentation.py                        # PyTorch U-Net architecture, training & loss ablation
+│   ├── hybrid_pipeline.py                          # End-to-end test execution & DataFrame export
 │   └── extensions.py                               # Robustness corruption propagation analysis
 ├── assignment3_dataset/                            # Synthetic stained-nuclei dataset
 │   └── nuclei_dataset/                             # train/ (80), val/ (20), test/ (12), test_corrupted/
 └── outputs/                                        # Pipeline output artifacts
     ├── system_architecture.png                     # System Architecture Diagram Image
-    ├── task1_eda/                                  # EDA sample grid & intensity histogram
-    ├── task1_vlm/                                  # Naive vs. structured prompt JSON & repeat runs
-    ├── task2_classical/                            # Otsu regionprops CSV & LLM responses
-    ├── task3_unet/                                 # Checkpoints (.pth), training curves & 4-panel figures
-    ├── task4_hybrid/                               # test_pipeline_results.csv & JSON records
+    ├── eda/                                        # EDA sample grid & intensity histogram
+    ├── vlm/                                        # Naive vs. structured prompt JSON & repeat runs
+    ├── classical/                                  # Otsu regionprops CSV & LLM responses
+    ├── unet/                                       # Checkpoints (.pth), training curves & 4-panel figures
+    ├── hybrid/                                     # test_pipeline_results.csv & JSON records
     └── extensions/                                 # Corruption propagation panels & results
 ```
 
@@ -165,22 +165,22 @@ python3 main.py
 Run individual tasks independently to inspect intermediate outputs at each stage:
 
 ```bash
-# Step 1: Exploratory Data Analysis (Task 1)
+# Step 1: Exploratory Data Analysis & Preprocessing
 python3 src/data_prep.py
 
-# Step 2: Direct Multimodal VLM Description (Task 1)
-python3 src/vlm_task1.py
+# Step 2: Direct Multimodal VLM Description
+python3 src/multimodal_vlm.py
 
-# Step 3: Classical Otsu Segmentation & Numbers-First LLM (Task 2)
-python3 src/classical_task2.py
+# Step 3: Classical Otsu Segmentation & Numbers-First LLM
+python3 src/classical_processing.py
 
-# Step 4: PyTorch U-Net Training & Loss Ablation (Task 3)
-python3 src/unet_task3.py
+# Step 4: PyTorch U-Net Training & Loss Ablation
+python3 src/unet_segmentation.py
 
-# Step 5: Full Hybrid Pipeline on Test Images (Task 4)
-python3 src/hybrid_pipeline_task4.py
+# Step 5: Full Hybrid Pipeline on Test Images
+python3 src/hybrid_pipeline.py
 
-# Step 6: Robustness & Corruption Propagation Analysis (Extra Credit Extension)
+# Step 6: Robustness & Corruption Propagation Analysis
 python3 src/extensions.py
 ```
 
@@ -188,7 +188,7 @@ python3 src/extensions.py
 
 ## 📊 Experimental Results Summary
 
-### U-Net Loss Ablation Benchmarks (Task 3)
+### U-Net Loss Ablation Benchmarks
 | Model / Loss Function | Validation Mean Dice | Validation Mean IoU | Performance Characteristics |
 | :--- | :---: | :---: | :--- |
 | **U-Net (BCE Loss)** | 0.0382 | 0.0196 | Severe background pixel imbalance bias |
@@ -199,9 +199,9 @@ python3 src/extensions.py
 
 ## ❓ Comprehensive Answers to Assignment Questions
 
-### Question 1: Direct VLM Description (Task 1) vs. Numbers-First Description (Task 2)
-* **Which is more useful?** Direct VLM description (Task 1) provides richer qualitative spatial and visual context (e.g., staining texture, local punctate clustering, brightness variation across fields).
-* **Which is more trustworthy?** The **numbers-first description (Task 2) is significantly more trustworthy**. Because every statement generated by the text LLM is explicitly derived from deterministic mathematical measurements calculated via `skimage.measure.regionprops_table` (connected component counts, mean area, eccentricity, solidity, intensity), visual hallucination is completely eliminated.
+### Question 1: Direct VLM Description vs. Numbers-First Description
+* **Which is more useful?** Direct VLM description provides richer qualitative spatial and visual context (e.g., staining texture, local punctate clustering, brightness variation across fields).
+* **Which is more trustworthy?** The **numbers-first description is significantly more trustworthy**. Because every statement generated by the text LLM is explicitly derived from deterministic mathematical measurements calculated via `skimage.measure.regionprops_table` (connected component counts, mean area, eccentricity, solidity, intensity), visual hallucination is completely eliminated.
 * **Why?** VLMs process raw pixel embeddings and can hallucinate non-existent features or pathological diagnoses under unconstrained prompts. The numbers-first approach decouples vision from reasoning, using verified measurements as an auditable truth boundary.
 
 ---
